@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation form</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="script.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h2>Register your details</h2>
+        </div>
+
+        <form class="form" id="form">
+
+            <div class="form-control">
+                <label>Username</label>
+                <input type="text" placeholder="Enter your name" id="username">
+                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Email id</label>
+                <input type="email" placeholder="abc@gmail.com" id="email">
+                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Password</label>
+                <input type="password" placeholder="password" id="password">
+                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <small>Error Message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Confirm password</label>
+                <input type="password" placeholder="password" id="password2">
+                <i class="fa-solid fa-circle-check"></i>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <small>Error Message</small>
+            </div>
+
+            <button>Submit</button>
+
+
+        </form>
+    </div>
+
+    <script>
+
+
+        const form = document.getElementById("form");
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const password2 = document.getElementById("password2");
+
+        form.addEventListener('submit', e => {
+
+            e.preventDefault();
+
+            checkInput();
+
+        });
+
+        function checkInput() {
+            const usernameValue = username.value.trim();
+            const emailValue = email.value.trim();
+            const passwordValue = password.value.trim();
+            const password2Value = password2.value.trim();
+
+            if (usernameValue === '') {
+                setError(username, 'Username cannot be blank')
+            }
+
+            else {
+                setSuccess(username);
+            }
+
+
+
+            if (emailValue === '') {
+                setError(email, 'Email cannot be blank')
+            }
+
+            else if (!isEmail(emailValue)) {
+                setError(email, 'Not a valid Email')
+            }
+
+            else {
+                setSuccess(email);
+            }
+
+
+            if (passwordValue === '') {
+                setError(password, 'password cannot be blank')
+            }
+
+            else {
+                setSuccess(password);
+            }
+
+            if (password2Value === '') {
+                setError(password2, 'password cannot be blank')
+            }
+
+            else if (passwordValue !== password2Value) {
+                setError(password2, 'passwords does not match');
+            }
+
+            else {
+                setSuccess(password2);
+            }
+
+        }
+
+
+        function setError(input, message) {
+            const formControl = input.parentElement;
+            const small = formControl.querySelector('small');
+            formControl.className = 'form-control error';
+            small.innerText = message;
+        }
+
+        function setSuccess(input, message) {
+            const formcontrol = input.parentElement;
+            formcontrol.className = 'form-control success';
+        }
+
+
+        function isEmail(email) {
+
+            return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+        }
+
+    </script>
+
+</body>
+
+</html>
